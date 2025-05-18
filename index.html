@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Water Meter Savings Calculator</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      max-width: 800px;
+      margin: auto;
+      padding: 20px;
+    }
+    table, th, td {
+      border: 1px solid #ccc;
+      border-collapse: collapse;
+      padding: 8px;
+    }
+    table {
+      width: 100%;
+      margin-bottom: 20px;
+    }
+    .graphic-bar {
+      display: flex;
+      margin-bottom: 20px;
+    }
+    .graphic-segment {
+      flex: 1;
+      text-align: center;
+      padding: 10px;
+      color: white;
+    }
+    .very-low { background: #2ecc71; }
+    .low { background: #27ae60; }
+    .moderate { background: #f1c40f; }
+    .high { background: #e74c3c; }
+    .result {
+      background: #f9f9f9;
+      padding: 15px;
+      border: 1px solid #ddd;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+    }
+  </style>
+</head>
+<body>
+
+  <h2>Water Meter Savings Calculator</h2>
+
+  <form id="calculator-form">
+    <label>
+      Average Daily Water Use (Litres per person):
+      <input type="number" id="daily-use" required>
+    </label>
+    <label>
+      Number of People in Household:
+      <input type="number" id="num-people" required>
+    </label>
+    <label>
+      Secondary Suite? 
+      <select id="has-suite">
+        <option value="no">No</option>
+        <option value="yes">Yes</option>
+      </select>
+    </label>
+    <button type="button" onclick="calculate()">Calculate Savings</button>
+  </form>
+
+  <h3>Water Use Benchmarks</h3>
+  <table>
+    <tr><th>Region</th><th>Average Daily Use (L)</th></tr>
+    <tr><td>Canadian Average</td><td>229</td></tr>
+    <tr><td>BC Average</td><td>312</td></tr>
+    <tr><td>Metro Vancouver</td><td>270</td></tr>
+    <tr><td>Fraser Valley</td><td>185</td></tr>
+    <tr><td>Mission</td><td>254</td></tr>
+  </table>
+
+  <div class="graphic-bar">
+    <div class="graphic-segment very-low">Very Low<br>150L/day</div>
+    <div class="graphic-segment low">Low<br>180L/day</div>
+    <div class="graphic-segment moderate">Moderate<br>220L/day</div>
+    <div class="graphic-segment high">High<br>300L+/day</div>
+  </div>
+
+  <h3>Rates</h3>
+  <table>
+    <tr><th>Rate Type</th><th>Annual Cost</th></tr>
+    <tr><td>Flat Rate</td><td>$587.76</td></tr>
+    <tr><td>Flat Rate w/ Suite</td><td>$1083.12</td></tr>
+  </table>
+
+  <h3>Results</h3>
+  <div class="result" id="results">
+    <p>Enter your details and click "Calculate" to see results.</p>
+  </div>
+
+  <script>
+    function calculate() {
+      const dailyUse = parseFloat(document.getElementById('daily-use').value);
+      const numPeople = parseInt(document.getElementById('num-people').value);
+      const hasSuite = document.getElementById('has-suite').value === 'yes';
+
+      if (isNaN(dailyUse) || isNaN(numPeople) || dailyUse <= 0 || numPeople <= 0) {
+        alert('Please enter valid positive numbers.');
+        return;
+      }
+
+      const litersPerYear = dailyUse * numPeople * 365;
+      const cubicMeters = litersPerYear / 1000;
+      const numPools = litersPerYear / 50000;
+
+      const meteredCost = (cubicMeters * 3.23) + 16.04;
+      const flatRate = hasSuite ? 1083.12 : 587.76;
+      const savings = flatRate - meteredCost;
+
+      document.getElementById('results').innerHTML = `
+        <p><strong>Total Water Use per Year:</strong> ${cubicMeters.toFixed(2)} m³</p>
+        <p><strong>Swimming Pools Filled:</strong> ${numPools.toFixed(2)} pools</p>
+        <p><strong>Metered Cost:</strong> $${meteredCost.toFixed(2)}</p>
+        <p><strong>Annual Savings:</strong> $${savings.toFixed(2)}</p>
+      `;
+    }
+  </script>
+
+</body>
+</html>
