@@ -49,6 +49,23 @@
 
   <h2>Water Meter Savings Calculator</h2>
 
+  <h3>Water Use Benchmarks</h3>
+  <table>
+    <tr><th>Region</th><th>Average Daily Use (L)</th></tr>
+    <tr><td>Canadian Average</td><td>229</td></tr>
+    <tr><td>BC Average</td><td>312</td></tr>
+    <tr><td>Metro Vancouver</td><td>270</td></tr>
+    <tr><td>Fraser Valley</td><td>185</td></tr>
+    <tr><td>Mission</td><td>254</td></tr>
+  </table>
+
+  <div class="graphic-bar">
+    <div class="graphic-segment very-low">Very Low<br>150L/day</div>
+    <div class="graphic-segment low">Low<br>180L/day</div>
+    <div class="graphic-segment moderate">Moderate<br>220L/day</div>
+    <div class="graphic-segment high">High<br>300L+/day</div>
+  </div>
+
   <form id="calculator-form">
     <label>
       Average Daily Water Use (Litres per person):
@@ -67,24 +84,7 @@
     </label>
     <button type="button" onclick="calculate()">Calculate Savings</button>
   </form>
-
-  <h3>Water Use Benchmarks</h3>
-  <table>
-    <tr><th>Region</th><th>Average Daily Use (L)</th></tr>
-    <tr><td>Canadian Average</td><td>229</td></tr>
-    <tr><td>BC Average</td><td>312</td></tr>
-    <tr><td>Metro Vancouver</td><td>270</td></tr>
-    <tr><td>Fraser Valley</td><td>185</td></tr>
-    <tr><td>Mission</td><td>254</td></tr>
-  </table>
-
-  <div class="graphic-bar">
-    <div class="graphic-segment very-low">Very Low<br>150L/day</div>
-    <div class="graphic-segment low">Low<br>180L/day</div>
-    <div class="graphic-segment moderate">Moderate<br>220L/day</div>
-    <div class="graphic-segment high">High<br>300L+/day</div>
-  </div>
-
+  
   <h3>Rates</h3>
   <table>
     <tr><th>Rate Type</th><th>Annual Cost</th></tr>
